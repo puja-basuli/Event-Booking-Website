@@ -1,0 +1,159 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    background-image: url(https://images.pexels.com/photos/220118/pexels-photo-220118.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .dashboard-header {
+    width: 100%;
+    background-color: #ff2b75;
+    padding: 20px 0;
+  }
+  
+  .wrapper {
+    width: 80%;
+    margin: 20px 0;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  .profile{
+    display: flex;
+    gap: 10px;
+  }
+  .profile, .bookings {
+    padding: 20px;
+    border-bottom: 1px solid #ffe6f0;
+  }
+  
+  .profile i {
+    color: #ff2b75;
+  }
+  
+  .profile h4 {
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .profile .btn-save, .profile .btn-edit {
+    background-color: #ff0059;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+ 
+  
+  .profile .btn-edit {
+    background-color: #ffffff;
+    padding: 0;
+    margin: 5px;
+  }
+  .signout .btn-signout {
+    background-color: #ff2b75;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+  
+  .bookings .btn-bookings {
+    background-color: #ff2b75;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  .bookings p {
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .bookings-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .bookings-table th, .bookings-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .bookings-table th {
+    background-color: #ff2b75;
+    color: #ffffff;
+  }
+  
+  .bookings-table tbody tr:nth-child(even) {
+    background-color: #fce4ec; 
+  }
+  
+  .bookings-table tbody tr:hover {
+    background-color: #f8bbd0; 
+  }
+  
+  .actions .btn-action {
+    background-color: #693e4d;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  @media (max-width: 768px) {
+    .wrapper {
+      width: 95%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .profile .btn-save, .profile .btn-edit, .signout .btn-signout, .bookings .btn-bookings {
+      width: 100%;
+    }
+  }
+  .message-pop div{
+display: flex;
+flex-direction: column;
+  }
+  .message-pop div h2{
+   text-align: center;
+   padding: 20px;
+   position: absolute;
+   left: 650px;
+   top: 100px;
+   
+      }
+      .message-pop div button{
+        
+        border: none;
+        margin: 10px;
+        color: black;
+        background-color: #ff2b75;
+        padding: 20px;
+
+        border-radius: 20px;
+           }
+      .message-pop{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 100px;
+      }

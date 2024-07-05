@@ -1,0 +1,97 @@
+
+
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(https://images.pexels.com/photos/220118/pexels-photo-220118.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1); /* Replace with your image path */
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .login-box {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    max-width: 400px; 
+    width: 100%;
+    text-align: center;
+  }
+  .login-box form{
+    background-color: rgba(255, 255, 255, 0.01);
+    
+  }
+  .login-heading {
+    margin-bottom: 20px;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-control {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  .submit-button,
+  .google-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ff006a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  .submit-button:hover,
+  .google-button:hover {
+    background-color: #b30048;
+  }
+  
+  .register-link {
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  
+  .register-link-text {
+    color: #ff005d;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .register-link-text:hover {
+    text-decoration: underline;
+  }
+  
+  .google-button {
+    background-color: #eeb1c1;
+  }
+  
+  .google-button:hover {
+    background-color: #f94d86;
+  }
+  
+  .radio-group{
+    display: flex;
+    gap: 5px;
+  }

@@ -1,0 +1,95 @@
+.admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .admin-info {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .admin-info h2 {
+    margin-top: 0;
+    padding: 5px;
+    color: #333;
+    font-size: x-large;
+  }
+  
+  .admin-info p {
+    color: #666;
+    padding: 5px;
+    font-size: large;
+  }
+  
+  .add-event {
+    margin-bottom: 20px;
+   margin: 20px;
+   color: black;
+  }
+  
+  .add-event button {
+    background-color: #ff0062;
+    color: #000000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-event button:hover {
+    background-color: #b30045;
+  }
+  
+  .events {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .events h3 {
+    margin-top: 0;
+    color: #333;
+  }
+  
+  .event-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .event-card h4 {
+    margin: 0 0 10px;
+    color: #333;
+  }
+  
+  .event-card p {
+    margin: 0;
+    color: #666;
+  }
+  
+  .wr1 {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .white {
+    color: #ffffff;
+  }
+  
+ 
+  .out:hover {
+    background-color: #b30045;
+  }
+  .form-title div button{
+    display: flex;
+    justify-content: start;
+  }
