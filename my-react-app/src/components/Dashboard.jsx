@@ -66,6 +66,8 @@ function Dashboard() {
     }
   }, [userInfo, navigate]);
 
+  
+
   useEffect(() => {
     if (user) {
       fetchEvents();
@@ -133,22 +135,7 @@ function Dashboard() {
   if (loadingUser || loadingUserInfo || loadingEvents) {
     return <div>Loading...</div>;
   }
-
-  if (!user) {
-    return (
-      <>
-        <div className="dash"></div>
-        <div className="message-pop">
-          <div>
-            <h2> NO SESSION FOUND</h2>
-            <Link to="/login"><button>SIGN IN</button></Link>
-            <Link to="/register"><button>SIGN UP</button></Link>
-          </div>
-        </div>
-      </>
-    );
-  }
-
+  
   const { upcomingEvents, pastEvents } = categorizeEvents(booking);
 
   return (
@@ -215,7 +202,8 @@ function Dashboard() {
               pastEvents.map((event) => (
                 <Link to={`/event/${event.id}`} state={{ event }} key={event.id}>
                   <div className="event-card">
-                    <h4>{event.name}</h4>
+                    <h4>{event.name} </h4>
+                    <h4>{event.attendee}</h4>
                     <p>{event.time}</p>
                     <p>{event.date}</p>
                     <p>{event.seatno}</p>

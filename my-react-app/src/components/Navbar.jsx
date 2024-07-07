@@ -27,6 +27,7 @@ export default function Navbar() {
         }
       }
     }
+
     fetchUserInfo();
   }, [user]);
 
@@ -39,26 +40,32 @@ export default function Navbar() {
         }
         if (data?.user) {
           setUser(data.user);
-          console.log(data.user);
         }
       } catch (error) {
         console.error("Error fetching user data:", error.message);
       }
     }
+
     getUserData();
   }, []);
 
   
-
   return (
     <header className="header">
       <Link to="/" className="logo">
         <i className="fa fa-snowflake-o" aria-hidden="true"></i>
         <span className="title">EveS</span>
       </Link>
-      
+
       <div className="right">
-        <Link to="/dashboard">{userInfo ? <h3 className="name">{userInfo.name}</h3> : null}</Link>
+        {userInfo ? (
+          <Link to="/dashboard">
+            <h3 className="name">{userInfo.name}</h3>
+          </Link>
+        ) : null}
+        <Link to="/wishlist">
+          <i className="fa fa-heart" aria-hidden="true"></i>
+        </Link>
         <Link to="/dashboard">
           <i className="fa fa-bars" aria-hidden="true"></i>
           <i className="fa fa-user" aria-hidden="true"></i>

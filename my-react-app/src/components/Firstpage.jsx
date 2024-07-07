@@ -127,10 +127,13 @@ function Firstpage() {
   };
 
   const categories = [
-    { name: 'AVAILABLE EVENTS', icon: 'fa-list', category: null },
-    { name: 'Entertainment', icon: 'fa-film', category: 'Entertainment' },
+    { name: '', icon: 'fa-list', category: null },
+    { name: 'Movies', icon: 'fa-film', category: 'Movies' },
     { name: 'Sports', icon: 'fa-futbol-o', category: 'Sports' },
-    { name: 'Nature', icon: 'fa-tree', category: 'Nature' },
+    { name: 'Tour', icon: 'fa-tree', category: 'Tour' },
+
+    { name: 'Homestays', icon: 'fa-list', category: 'Home' },
+    { name: 'Activities', icon: 'fa-asterisk', category: 'Activites' },
   ];
 
   const handleSearch = async (e) => {

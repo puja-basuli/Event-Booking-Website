@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { supabase } from "../api/client";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import "./Admin.css"
+import "./Admin.css";
 
 const Add = () => {
   const [user, setUser] = useState(null);
@@ -17,41 +17,8 @@ const Add = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [registeredUsers, setRegisteredUsers] = useState({});
-  const [events, setEvents] = useState([]);
-  const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
-
-  const uploadImage = async (event) => {
-    setUploading(true);
-    let file = event.target.files[0];
-
-    const { data, error } = await supabase
-      .storage
-      .from('images')
-      .upload(`public/${file.name}`, file);
-
-    if (error) {
-      console.error(error);
-    } else {
-      console.log('Image uploaded:', data);
-    }
-    setUploading(false);
-  };
-  async function fetchRegisteredUsers(eventId) {
-    try {
-      const { data, error } = await supabase
-        .from("registrations")
-        .select("email")
-        .eq("event_id", eventId);
-      if (error) throw error;
-      setRegisteredUsers((prev) => ({ ...prev, [eventId]: data }));
-    } catch (error) {
-      console.error("Error fetching registered users:", error.message);
-    }
-  }
-
- 
+  const [category, setCategory] = useState("");
 
   async function addEvent(event) {
     event.preventDefault();
@@ -66,7 +33,8 @@ const Add = () => {
           img: imageUrl,
           price,
           description,
-          email: userInfo.email,
+          email: user.email,
+          category
         },
       ]);
       if (error) throw error;
@@ -95,8 +63,6 @@ const Add = () => {
       console.error("Error fetching events:", error.message);
     }
   }
-
- 
 
   useEffect(() => {
     fetchEvents();
@@ -155,6 +121,44 @@ const Add = () => {
     fetchUserInfo();
   }, [user]);
 
+  const categories = [
+    { name: '', icon: 'fa-list', category: null },
+    { name: 'Movies', icon: 'fa-film', category: 'Movies' },
+    { name: 'Sports', icon: 'fa-futbol-o', category: 'Sports' },
+    { name: 'Tour', icon: 'fa-tree', category: 'Tour' },
+    { name: 'Homestays', icon: 'fa-list', category: 'Home' },
+    { name: 'Activities', icon: 'fa-asterisk', category: 'Activities' },
+  ];
+
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
+  };
+
+  const navigateToAdmin = () => {
+    navigate("/admin");
+  };
+
+  const uploadImage = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+
+    const { data, error } = await supabase.storage
+      .from("images")
+      .upload(`public/${file.name}`, file);
+
+    setUploading(false);
+
+    if (error) {
+      console.error("Error uploading image:", error.message);
+      return;
+    }
+
+    const imageUrl = supabase.storage.from("images").getPublicUrl(data.path).publicUrl;
+    setImageUrl(imageUrl);
+  };
+
   if (!user) {
     return (
       <>
@@ -172,92 +176,90 @@ const Add = () => {
       </>
     );
   }
-const nav=()=>{
-    navigate("/admin")
-}
+
   return (
-   
-      <div>
-       
-        <div className="dash"></div>
-          <div className="flex-container">
-            
-            <div className="form-container">
-              <form onSubmit={addEvent}>
-              <button className="out" onClick={nav}>Go back</button>
-                <p className="form-title">ADD EVENT</p>
-              
-                <label>
-                  Event Name:
-                  <br />
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </label>
-                <label>
-                  Location:<br />
-                  <input
-                    type="text"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                  />
-                </label>
-                <label>
-                  Time:<br />
-                  <input
-                    type="time"
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
-                  />
-                </label>
-                <label>
-                  Date:<br />
-                  <input
-                    type="date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                  />
-                </label>
-                <label>
-                  Seats Available:<br />
-                  <input
-                    type="number"
-                    value={seatsAvailable}
-                    onChange={(e) => setSeatsAvailable(e.target.value)}
-                  />
-                </label>
-                <label>
-                  Price:<br />
-                  <input
-                    type="number"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                  />
-                </label>
-                <label>
-                  Image Upload:
-                 
-      <input type="file" onChange={uploadImage} disabled={uploading} />
-      {uploading && <p>Uploading...</p>}
-    
-                </label>
-                <label>
-                  Description:<br />
-                  <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                  />
-                </label>
-                <button type="submit" className="submit-button">Add Event</button>
-              </form>
-            </div>
-          </div>
-         
+    <div>
+      <div className="dash"></div>
+      <div className="flex-container">
+        <div className="form-container">
+          <form onSubmit={addEvent}>
+            <button className="out" onClick={navigateToAdmin}>Go back</button>
+            <p className="form-title">ADD EVENT</p>
+            <label>
+              Event Name:
+              <br />
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </label>
+            <label>
+              Location:<br />
+              <input
+                type="text"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              />
+            </label>
+            <label>
+              Time:<br />
+              <input
+                type="time"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+              />
+            </label>
+            <label>
+              Date:<br />
+              <input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
+            </label>
+            <label>
+              Seats Available:<br />
+              <input
+                type="number"
+                value={seatsAvailable}
+                onChange={(e) => setSeatsAvailable(e.target.value)}
+              />
+            </label>
+            <label>
+              Price:<br />
+              <input
+                type="number"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </label>
+            <label>
+              Category:<br />
+              <select value={category} onChange={handleCategoryChange}>
+                {categories.map((cat, index) => (
+                  <option key={index} value={cat.category}>{cat.name}</option>
+                ))}
+              </select>
+            </label>
+            <label>
+              Image Upload:
+              <input type="file" onChange={uploadImage} disabled={uploading} />
+              {uploading && <p>Uploading...</p>}
+            </label>
+            <label>
+              Description:<br />
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </label>
+            <button type="submit" className="submit-button">Add Event</button>
+          </form>
         </div>
-     
-    );
-    
+      </div>
+    </div>
+  );
 };
+
 export default Add;

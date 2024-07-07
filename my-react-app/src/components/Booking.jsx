@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { supabase } from "./api/client";
+import axios from 'axios';
 import './BookingPage.css';
+import { useParams } from "react-router-dom";
 
 function BookingPage() {
   const location = useLocation();
@@ -13,7 +15,7 @@ function BookingPage() {
   const [error, setError] = useState(null);
   const [userInfo, setUserInfo] = useState();
   const [success, setSuccess] = useState(null);
-  const [ticket, setTicket] = useState();
+  const [tickets, setTickets] = useState([]);
 
   useEffect(() => {
     async function getUserData() {
@@ -60,44 +62,58 @@ function BookingPage() {
     setIsSubmitting(true);
     setError(null);
     setSuccess(null);
-    const ticketNo = generateTicketNo();
+    const newTickets = attendees.map(() => generateTicketNo());
 
     try {
+      const { data: eventData, error: eventError } = await supabase
+        .from('events')
+        .select('seats')
+        .eq('id', event.id)
+        .single();
+
+      if (eventError) {
+        throw eventError;
+      }
+
+      if (eventData.seats < seatBook) {
+        throw new Error("Not enough seats available.");
+      }
+
       const { data, error } = await supabase
         .from('booking')
-        .insert([
-          {
-            
-            name: event.name,
-            date: selectedDate,
-            location: event.location,
-            ticketno: ticketNo,
-            seatno: seatBook,
-            attendee: attendees,
-            email: userInfo.email,
-          }
-        ]);
+        .insert(attendees.map((attendee, index) => ({
+          name: event.name,
+          date: selectedDate,
+          location: event.location,
+          ticketno: newTickets[index],
+          seatno: seatBook,
+          attendee: attendee.name,
+          email: userInfo.email,
+        })));
 
       if (error) {
         throw error;
       }
 
+      await supabase
+        .from('events')
+        .update({ seats: eventData.seats - seatBook })
+        .eq('id', event.id);
 
-      await fetch('http://localhost:5000/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ticketNo: ticketNo,
-          userEmail: userInfo.email,
-        }),
-      });
-  
+
+        await axios.post('http://localhost:4000/', {
+          params:{
+          ticketNo: newTickets,
+          userEmail: userInfo.email,}
+        }).then(()=>{
+          console.log("success email");
+        }).catch(()=>{
+          console.log("failed email");
+        });
       setSuccess("Booking successful!");
       setSeatBook(0);
       setAttendees([]);
-      setTicket(ticketNo);
+      setTickets(newTickets);
     } catch (error) {
       setError("Booking failed. Please try again.");
     } finally {
@@ -108,7 +124,6 @@ function BookingPage() {
   return (
     <div>
       <div className="dash"></div>
-
       <div className="booking-page">
         <div className="opac">
           <div>
@@ -161,7 +176,14 @@ function BookingPage() {
           </button>
           {error && <p className="error">{error}</p>}
           {success && <p className="success">{success}</p>}
-          {ticket && <p className="ticket">Your Ticket No: {ticket}</p>}
+          {tickets.length > 0 && (
+            <div className="tickets">
+              <h2>Your Tickets:</h2>
+              {tickets.map((ticket, index) => (
+                <p key={index} className="ticket">Ticket No: {ticket}</p>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

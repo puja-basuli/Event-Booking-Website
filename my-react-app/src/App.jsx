@@ -11,10 +11,9 @@ import BookingPage from "./components/Booking";
 import Add from "./components/Admin/Add";
 import CompleteProfile from "./components/Auth/Completeprofile";
 import Edit from "./components/Admin/Edit";
-
+import Wishlist from "./components/Wishlist";
 import EventDetails from "./components/EventDetails";
 
-import { UserProvider , EventsProvider} from "./components/Context/contexts";
 
 function App() {
   return (
@@ -31,6 +30,8 @@ function App() {
 
       <Route path="/admin/edit" index element ={<Edit/>}/>
       <Route path="/booking" index element ={<BookingPage/>}/>
+
+      <Route path="/wishlist" index element ={<Wishlist/>}/>
 
       <Route path="/complete-profile" index element ={<CompleteProfile/>}/>
       </Route>
