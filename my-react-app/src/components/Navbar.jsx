@@ -5,8 +5,6 @@ import { supabase } from "./api/client";
 export default function Navbar() {
   const [userInfo, setUserInfo] = useState(null);
   const [user, setUser] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,7 +47,14 @@ export default function Navbar() {
     getUserData();
   }, []);
 
-  
+  const handleLoginOrDashboard = () => {
+    if (user) {
+      navigate('/dashboard');
+    } else {
+      navigate('/login');
+    }
+  };
+
   return (
     <header className="header">
       <Link to="/" className="logo">
@@ -66,10 +71,10 @@ export default function Navbar() {
         <Link to="/wishlist">
           <i className="fa fa-heart" aria-hidden="true"></i>
         </Link>
-        <Link to="/dashboard">
+        <button onClick={handleLoginOrDashboard} className="icon-button invisible-button">
           <i className="fa fa-bars" aria-hidden="true"></i>
           <i className="fa fa-user" aria-hidden="true"></i>
-        </Link>
+        </button>
       </div>
     </header>
   );

@@ -14,6 +14,9 @@ import Edit from "./components/Admin/Edit";
 import Wishlist from "./components/Wishlist";
 import EventDetails from "./components/EventDetails";
 
+import StripePayment from "./components/StripePayment";
+
+import PaymentSuccess from "./components/PaymentSuccess";
 
 function App() {
   return (
@@ -33,6 +36,8 @@ function App() {
 
       <Route path="/wishlist" index element ={<Wishlist/>}/>
 
+      <Route path="payment" element={<StripePayment />} />
+      <Route path="success" element={<PaymentSuccess />} />
       <Route path="/complete-profile" index element ={<CompleteProfile/>}/>
       </Route>
 

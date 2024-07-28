@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { supabase } from "./api/client";
 import axios from 'axios';
 import './BookingPage.css';
-import { useParams } from "react-router-dom";
+import {loadStripe} from '@stripe/stripe-js';
 
 function BookingPage() {
   const location = useLocation();
@@ -13,9 +13,10 @@ function BookingPage() {
   const [selectedDate, setSelectedDate] = useState(event.date);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
-  const [userInfo, setUserInfo] = useState();
+  const [userInfo, setUserInfo] = useState(null);
   const [success, setSuccess] = useState(null);
   const [tickets, setTickets] = useState([]);
+  const [paymentUrl, setPaymentUrl] = useState('');
 
   useEffect(() => {
     async function getUserData() {
@@ -28,7 +29,7 @@ function BookingPage() {
           setUserInfo(data.user);
         }
       } catch (error) {
-        console.error("Error fetching user data:", error.message);
+        console.log(error);
       }
     }
     getUserData();
@@ -58,27 +59,66 @@ function BookingPage() {
     return `TICKET-${Math.floor(100000 + Math.random() * 900000)}`;
   };
 
+  const calculateTotalAmount = () => {
+    return seatBook * event.price;
+  };
+
+  const makePayment = async () => {
+    const stripe = await loadStripe("pk_test_51PecWOLXUAx23PpQ6YXYa5npy9ga1geoAjnY0DX8d6WFZGOu4QYpCh7QFfOx54pMHXT7kPDLCqIALanGy2AiEQPW00ku1jt87p");
+
+    const body = {
+      products: attendees.map(attendee => ({
+        name: event.name,
+        quantity: 1,
+        price: event.price,
+      })),
+    };
+
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch("http://localhost:7000/api/create-checkout-session", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(body),
+    });
+
+    const session = await response.json();
+
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    if (result.error) {
+      console.log(result.error);
+    }
+  };
+
   const handleBooking = async () => {
     setIsSubmitting(true);
     setError(null);
     setSuccess(null);
+    setTickets([]);
+
     const newTickets = attendees.map(() => generateTicketNo());
 
     try {
+      // Fetch current event data
       const { data: eventData, error: eventError } = await supabase
         .from('events')
         .select('seats')
         .eq('id', event.id)
         .single();
 
-      if (eventError) {
-        throw eventError;
-      }
+      if (eventError) throw eventError;
 
+      // Check if there are enough seats available
       if (eventData.seats < seatBook) {
         throw new Error("Not enough seats available.");
       }
 
+      // Insert booking information
       const { data, error } = await supabase
         .from('booking')
         .insert(attendees.map((attendee, index) => ({
@@ -100,22 +140,38 @@ function BookingPage() {
         .update({ seats: eventData.seats - seatBook })
         .eq('id', event.id);
 
-
-        await axios.post('http://localhost:4000/', {
-          params:{
-          ticketNo: newTickets,
-          userEmail: userInfo.email,}
-        }).then(()=>{
-          console.log("success email");
-        }).catch(()=>{
-          console.log("failed email");
-        });
       setSuccess("Booking successful!");
       setSeatBook(0);
       setAttendees([]);
       setTickets(newTickets);
+
     } catch (error) {
       setError("Booking failed. Please try again.");
+      console.error(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handlePaymentAndBooking = async () => {
+    setIsSubmitting(true);
+    setError(null);
+    setSuccess(null);
+    setTickets([]);
+
+    try {
+      await makePayment();
+      const paymentSuccess = true; 
+
+      if (paymentSuccess) {
+        await handleBooking();
+      } else {
+        throw new Error("Payment failed. Please try again.");
+      }
+
+    } catch (error) {
+      setError("Error during booking or payment. Please try again.");
+      console.error(error.message);
     } finally {
       setIsSubmitting(false);
     }
@@ -171,9 +227,6 @@ function BookingPage() {
               </div>
             ))}
           </div>
-          <button className="book" onClick={handleBooking} disabled={isSubmitting || seatBook === 0}>
-            {isSubmitting ? "Booking..." : "Book Now"}
-          </button>
           {error && <p className="error">{error}</p>}
           {success && <p className="success">{success}</p>}
           {tickets.length > 0 && (
@@ -184,6 +237,9 @@ function BookingPage() {
               ))}
             </div>
           )}
+          <button onClick={handlePaymentAndBooking} className="out" disabled={isSubmitting}>
+            {isSubmitting ? 'Processing...' : 'Proceed to Payment'}
+          </button>
         </div>
       </div>
     </div>

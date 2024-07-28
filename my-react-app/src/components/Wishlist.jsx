@@ -64,6 +64,7 @@ const Wishlist = () => {
     return (
       <div>
         <div className="gap"></div>
+        <h1>WISHLISTED EVENTS</h1>
         <div className="wish-box">
           {loadingEvents ? (
             <div>Loading events...</div>
@@ -72,6 +73,7 @@ const Wishlist = () => {
           ) : (
             events.map((event) => <EventCard key={event.id} event={event} />)
           )}
+          
         </div>
       </div>
     );

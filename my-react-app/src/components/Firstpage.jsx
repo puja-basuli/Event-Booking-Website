@@ -49,8 +49,8 @@ function Firstpage() {
       let { data: events, error } = await supabase
         .from('events')
         .select('*')
-        .gte('date', today) // Fetch events where the date is greater than or equal to today
-        .order('date', { ascending: true }); // Ensure events are sorted by date
+        .gte('date', today) 
+        .order('date', { ascending: true }); // events are sorted 
       if (error) throw error;
       setEvents(events);
     } catch (error) {
@@ -162,6 +162,8 @@ function Firstpage() {
     setSearchQuery("");
     setSearchResults([]);
   };
+
+ 
 
   return (
     <div>
