@@ -8,19 +8,16 @@ app.use(express.json());
 app.use(cors());
 
 app.post("/api/create-checkout-session",async(req,res)=>{
-    const {products} = req.body;
+    const {events} = req.body;
 
 
-    const lineItems = products.map((product)=>({
+    const lineItems = events.map((product)=>({
         price_data:{
-            currency:"inr",
-            product_data:{
-                name:product.dish,
-                images:[product.imgdata]
-            },
-            unit_amount:product.price * 100,
+            currency:"usd",
+            
+            unit_amount:events.price * 100,
         },
-        quantity:product.qnty
+        quantity:events.qnty
     }));
 
     const session = await stripe.checkout.sessions.create({
