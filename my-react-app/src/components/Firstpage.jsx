@@ -128,10 +128,10 @@ function Firstpage() {
 
   const categories = [
     { name: '', icon: 'fa-list', category: null },
-    { name: 'Movies', icon: 'fa-film', category: 'Movies' },
+    { name: 'Entertainment', icon: 'fa-film', category: 'Movies' },
     { name: 'Sports', icon: 'fa-futbol-o', category: 'Sports' },
     { name: 'Tour', icon: 'fa-tree', category: 'Tour' },
-
+    { name: 'Rides', icon: 'fa-star', category: 'Rides' },
     { name: 'Homestays', icon: 'fa-list', category: 'Home' },
     { name: 'Activities', icon: 'fa-asterisk', category: 'Activites' },
   ];

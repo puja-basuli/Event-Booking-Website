@@ -7,30 +7,41 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 app.use(express.json());
 app.use(cors());
 
-app.post("/api/create-checkout-session",async(req,res)=>{
-    const {events} = req.body;
+app.post("/create-checkout-session", async (req, res) => {
+    try {
+        const { events } = req.body;
 
+        // console.log(events);
 
-    const lineItems = events.map((product)=>({
-        price_data:{
-            currency:"usd",
-            
-            unit_amount:events.price * 100,
-        },
-        quantity:events.qnty
-    }));
+        const lineItems = [
+            {
+                price_data: {
+                    currency: "inr",
+                    product_data: {
+                        name: events[0].name,
+                    },
+                    unit_amount: events[0].price * 1000,
+                },
+                quantity: events[0].qnty,
+            }
+        ];
 
-    const session = await stripe.checkout.sessions.create({
-        payment_method_types:["card"],
-        line_items:lineItems,
-        mode:"payment",
-        success_url: `${process.env.CLIENT_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${process.env.CLIENT_URL}/cancel`
-    });
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ["card"],
+            line_items: lineItems,
+            mode: "payment",
+            success_url: `${process.env.CLIENT_URL}?success=true`,
+            cancel_url: `${process.env.CLIENT_URL}?canceled=true`,
+        });
 
-    res.json({id:session.id})
- 
-})
+        console.log("Stripe Session: ", session);
+
+        res.json({ id: session.id });
+    } catch (error) {
+        console.error("Error creating checkout session:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 
 app.get('/success', async (req, res) => {
     const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
@@ -44,9 +55,9 @@ app.get('/success', async (req, res) => {
         const transporter = nodemailer.createTransport({
             host: account.smtp.host,
             port: account.smtp.port,
-            secure: account.smtp.secure, 
+            secure: account.smtp.secure,
             auth: {
-                user: account.user, 
+                user: account.user,
                 pass: account.pass,
             },
         });
@@ -70,7 +81,6 @@ app.get('/success', async (req, res) => {
     res.send('Payment Successful');
 });
 
-app.listen(7000,()=>{
+app.listen(7000, () => {
     console.log("server start")
 })
-

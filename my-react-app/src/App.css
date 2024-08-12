@@ -366,15 +366,8 @@ justify-content: center;
     cursor: pointer;
     display: flex;
     align-items: center;
+    background-color: rgb(248, 232, 232);
   }
   
-  .icon-button.invisible-button:focus {
-    outline: none;
-  }
-  
-  .icon-button.invisible-button i {
-    color: inherit;
-    font-size: inherit; 
-    margin: 0 5px;
-  }
+
   

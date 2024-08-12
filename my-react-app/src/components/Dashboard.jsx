@@ -48,11 +48,19 @@ function Dashboard() {
         if (error) {
           throw error;
         }
+        if (!data) {
+          // If no user info, insert it
+          await supabase.from('newusers').insert({
+            email: user.email,
+            username: user.user_metadata?.user_name || '',
+            name: user.user_metadata?.full_name || '',
+          });
+        }
         setUserInfo(data);
-        setNameInput(data.name);
+        setNameInput(data.name || '');
       } catch (error) {
-        setError("Error fetching user info");
-        console.error('Error fetching user info:', error.message);
+        setError("Error fetching or inserting user info");
+        console.error('Error fetching or inserting user info:', error.message);
       } finally {
         setLoadingUserInfo(false);
       }
@@ -65,8 +73,6 @@ function Dashboard() {
       navigate("/admin");
     }
   }, [userInfo, navigate]);
-
-  
 
   useEffect(() => {
     if (user) {

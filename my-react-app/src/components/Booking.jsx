@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { supabase } from "./api/client";
-import axios from 'axios';
 import './BookingPage.css';
-import {loadStripe} from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import emailjs from 'emailjs-com';
+
+const stripePromise = loadStripe(`${import.meta.env.STRIPE_PUBLIC_KEY}`);
 
 function BookingPage() {
   const location = useLocation();
@@ -16,7 +18,6 @@ function BookingPage() {
   const [userInfo, setUserInfo] = useState(null);
   const [success, setSuccess] = useState(null);
   const [tickets, setTickets] = useState([]);
-  const [paymentUrl, setPaymentUrl] = useState('');
 
   useEffect(() => {
     async function getUserData() {
@@ -63,48 +64,68 @@ function BookingPage() {
     return seatBook * event.price;
   };
 
+  const sendConfirmationEmail = async (ticketNumbers) => {
+    const templateParams = {
+      to_email: userInfo.email,
+      subject: `Booking Confirmation for ${event.name}`,
+      message: `Thank you for booking ${seatBook} seat(s) for the event "${event.name}". Your ticket numbers are:\n\n${ticketNumbers.join('\n')}`,
+    };
+
+    try {
+      await emailjs.send('service_c0rjqnf', 'template_buvsxrh', templateParams, '3KEHQ3pOVG79zaKSu');
+      console.log('Email sent successfully');
+    } catch (error) {
+      console.error('Failed to send email', error);
+    }
+  };
+
   const makePayment = async () => {
-    const stripe = await loadStripe("pk_test_51PecWOLXUAx23PpQ6YXYa5npy9ga1geoAjnY0DX8d6WFZGOu4QYpCh7QFfOx54pMHXT7kPDLCqIALanGy2AiEQPW00ku1jt87p");
+    const stripe = await stripePromise;
 
     const body = {
-      products: attendees.map(attendee => ({
+      events: [{
         name: event.name,
-        quantity: 1,
-        price: event.price,
-      })),
+        qnty: seatBook,
+        price: calculateTotalAmount,
+      }],
     };
 
-    const headers = {
-      "Content-Type": "application/json",
-    };
+    // console.log("Events: ", typeof(body.events[0].price))
 
-    const response = await fetch("http://localhost:7000/api/create-checkout-session", {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(body),
-    });
+    try {
+      const response = await fetch("http://localhost:7000/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
 
-    const session = await response.json();
+      if (!response.ok) {
+        throw new Error("Failed to create checkout session");
+      }
 
-    const result = stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
+      const session = await response.json();
 
-    if (result.error) {
-      console.log(result.error);
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+
+      if (result.error) {
+        setError(result.error.message);
+      }
+    } catch (error) {
+      setError("Payment failed. Please try again.");
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const handleBooking = async () => {
-    setIsSubmitting(true);
-    setError(null);
-    setSuccess(null);
-    setTickets([]);
-
     const newTickets = attendees.map(() => generateTicketNo());
 
     try {
-      // Fetch current event data
       const { data: eventData, error: eventError } = await supabase
         .from('events')
         .select('seats')
@@ -113,12 +134,10 @@ function BookingPage() {
 
       if (eventError) throw eventError;
 
-      // Check if there are enough seats available
       if (eventData.seats < seatBook) {
         throw new Error("Not enough seats available.");
       }
 
-      // Insert booking information
       const { data, error } = await supabase
         .from('booking')
         .insert(attendees.map((attendee, index) => ({
@@ -131,9 +150,7 @@ function BookingPage() {
           email: userInfo.email,
         })));
 
-      if (error) {
-        throw error;
-      }
+      if (error) throw error;
 
       await supabase
         .from('events')
@@ -144,6 +161,8 @@ function BookingPage() {
       setSeatBook(0);
       setAttendees([]);
       setTickets(newTickets);
+
+      await sendConfirmationEmail(newTickets);
 
     } catch (error) {
       setError("Booking failed. Please try again.");
@@ -161,14 +180,7 @@ function BookingPage() {
 
     try {
       await makePayment();
-      const paymentSuccess = true; 
-
-      if (paymentSuccess) {
-        await handleBooking();
-      } else {
-        throw new Error("Payment failed. Please try again.");
-      }
-
+      await handleBooking();
     } catch (error) {
       setError("Error during booking or payment. Please try again.");
       console.error(error.message);
@@ -193,7 +205,7 @@ function BookingPage() {
               <p><strong>Location:</strong> {event.location}</p>
               <p><strong>Dates available:</strong> {event.date} - {event.dateto}</p>
               <p><strong>Time:</strong> {event.time}</p>
-              <p><strong>Price per person:</strong> {event.price}</p>
+              <p><strong>Price per person:</strong> ${event.price}</p>
               <p><strong>Seats Available:</strong> {event.seats}</p>
               <p><strong>Description:</strong> {event.description}</p>
               <p>
@@ -239,6 +251,9 @@ function BookingPage() {
           )}
           <button onClick={handlePaymentAndBooking} className="out" disabled={isSubmitting}>
             {isSubmitting ? 'Processing...' : 'Proceed to Payment'}
+          </button>
+          <button onClick={() => sendConfirmationEmail(['TEST_TICKET'])} className="out" disabled={isSubmitting}>
+            {isSubmitting ? 'Processing...' : 'Test Email'}
           </button>
         </div>
       </div>
