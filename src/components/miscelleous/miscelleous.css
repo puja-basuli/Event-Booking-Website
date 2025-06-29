@@ -1,0 +1,82 @@
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  margin: 0 8px;
+}
+
+.tooltip-text {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #222;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+
+.tooltip-container:hover .tooltip-text {
+  opacity: 1;
+}
+.flex-2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader {
+  width: 48px;
+  height: 48px;
+  position: relative;
+}
+.loader::before , .loader::after{
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50% , -50%);
+  width: 48em;
+  height: 48em;
+  background-image:
+    radial-gradient(circle 10px, #e4a2c4 100%, transparent 0),
+    radial-gradient(circle 10px, #e4a2c4 100%, transparent 0),
+    radial-gradient(circle 10px, #e4a2c4 100%, transparent 0),
+    radial-gradient(circle 10px, #e4a2c4 100%, transparent 0),
+    radial-gradient(circle 10px, #e4a2c4 100%, transparent 0),
+    radial-gradient(circle 10px, #e4a2c4 100%, transparent 0),
+    radial-gradient(circle 10px, #e4a2c4 100%, transparent 0),
+    radial-gradient(circle 10px, #e4a2c4 100%, transparent 0);
+  background-position: 0em -18em, 0em 18em, 18em 0em, -18em 0em,
+                       13em -13em, -13em -13em, 13em 13em, -13em 13em;
+    background-repeat: no-repeat;
+  font-size: 0.5px;
+  border-radius: 50%;
+  animation: blast 1s ease-in infinite;
+}
+.loader::after {
+  font-size: 1px;
+  background: #fff;
+  animation: bounce 1s ease-in infinite;
+}
+
+@keyframes bounce {
+  0% , 100%{ font-size: 0.75px }
+  50% { font-size: 1.5px }
+}
+@keyframes blast {
+  0% , 40% {
+    font-size: 0.5px;
+  }
+  70% {
+    opacity: 1;
+    font-size: 4px;
+  }
+   100% {
+     font-size: 6px;
+    opacity: 0;
+  }
+}
