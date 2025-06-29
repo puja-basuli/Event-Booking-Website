@@ -1,0 +1,36 @@
+.header-dash{
+  height: 50px;
+}
+.admin-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #dbacb98a;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.bar-content {
+  color: rgb(255, 64, 134);
+  padding: 15px 20px;
+  text-decoration: none;
+  font-weight: 800;
+  
+  transition: background 0.3s;
+}
+
+.bar-content:hover {
+  background-color: #a01443;
+}
+
+.admin-main {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #f7f9fc;
+  overflow-y: auto;
+}
