@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../api/client";
-import {  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import './Dashboard.css';
 import Loader from "../miscelleous/Loader";
+
+const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+
 function Dashboard() {
   const [user, setUser] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
@@ -15,7 +19,32 @@ function Dashboard() {
   const [loadingEvents, setLoadingEvents] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch current authenticated user
+  // Upload image URL to Cloudinary (unsigned upload)
+  const uploadImageToCloudinary = async (imageUrl) => {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+
+      const formData = new FormData();
+      formData.append("file", blob);
+      formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`, {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error?.message || "Cloudinary upload failed");
+
+      return data.secure_url;
+    } catch (error) {
+      console.error("Cloudinary upload error:", error.message);
+      return null;
+    }
+  };
+
+  // Get current user from Supabase Auth
   useEffect(() => {
     async function getUserData() {
       try {
@@ -32,32 +61,7 @@ function Dashboard() {
     getUserData();
   }, []);
 
-  // Upload profile image to Supabase storage bucket
-  const uploadProfileImage = async (url, userId) => {
-    try {
-      const response = await fetch(url);
-      const blob = await response.blob();
-      const ext = url.split('.').pop().split('?')[0];
-      const path = `${userId}.${ext}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from('profile-images')
-        .upload(path, blob, { upsert: true, contentType: blob.type });
-
-      if (uploadError) throw uploadError;
-
-      const { data: publicUrlData } = supabase.storage
-        .from('profile-images')
-        .getPublicUrl(path);
-
-      return publicUrlData.publicUrl;
-    } catch (error) {
-      console.error('Failed to upload image:', error.message);
-      return null;
-    }
-  };
-
-  // Fetch or insert user in users table by auth_id (Supabase UUID)
+  // Fetch or create user in "users" table by auth_id
   useEffect(() => {
     if (!user) return;
 
@@ -74,11 +78,11 @@ function Dashboard() {
           setUserInfo(existing);
           setNameInput(existing.name || "");
         } else {
-          // Upload profile image if available
+          // Upload profile image from Supabase Auth metadata to Cloudinary
           const pictureUrl = user.user_metadata?.picture;
           let finalImageUrl = null;
           if (pictureUrl) {
-            finalImageUrl = await uploadProfileImage(pictureUrl, user.id);
+            finalImageUrl = await uploadImageToCloudinary(pictureUrl);
           }
 
           const insertRes = await supabase
@@ -108,10 +112,11 @@ function Dashboard() {
     fetchOrCreateUser();
   }, [user]);
 
-
-  // Fetch user event bookings
+  // Fetch bookings by auth_id (user.id)
   useEffect(() => {
-    async function fetchEvents() {
+    if (!user) return;
+
+    async function fetchBookings() {
       setLoadingEvents(true);
       try {
         const { data, error } = await supabase
@@ -121,14 +126,14 @@ function Dashboard() {
         if (error) throw error;
         setBooking(data || []);
       } catch (error) {
-        setError("Error fetching events");
-        console.error("Events fetch error:", error.message);
+        setError("Error fetching bookings");
+        console.error("Booking fetch error:", error.message);
       } finally {
         setLoadingEvents(false);
       }
     }
 
-    if (user) fetchEvents();
+    fetchBookings();
   }, [user]);
 
   // Save updated name to users table
@@ -159,7 +164,7 @@ function Dashboard() {
     return { upcoming, past };
   };
 
-  if (loadingUser || loadingUserInfo || loadingEvents) return <div><Loader/></div>;
+  if (loadingUser || loadingUserInfo || loadingEvents) return <div><Loader /></div>;
 
   const { upcoming: upcomingEvents, past: pastEvents } = categorizeEvents(booking);
 

@@ -1,5 +1,5 @@
 import React from "react";
-import EventCard from "../Frontpagecard/Eventcard";
+import EventCard from "../Card/Eventcard";
 import { supabase } from "../api/client";
 import { useState, useEffect } from "react";
 

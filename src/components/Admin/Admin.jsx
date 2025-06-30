@@ -1,5 +1,4 @@
 import { Link, Routes, Route, Navigate } from "react-router-dom";
-import Payments from "./Payments.jsx";
 import Users from "./Users.jsx";
 import Events from "./Events.jsx";
 import Bookings from "./Bookings.jsx";
@@ -15,7 +14,6 @@ const Admin = () => {
         <Link to="/admin/users" className="bar-content">Users</Link>
         <Link to="/admin/events" className="bar-content">Events</Link>
         <Link to="/admin/bookings" className="bar-content">Bookings</Link>
-        <Link to="/admin/payments" className="bar-content">Payments</Link>
       </div>
 
       <div className="admin-main">
@@ -25,7 +23,6 @@ const Admin = () => {
           <Route path="/users" element={<Users />} />
           <Route path="/events" element={<Events />} />
           <Route path="/bookings" element={<Bookings />} />
-          <Route path="/payments" element={<Payments />} />
         </Routes>
       </div>
     </div>

@@ -1,0 +1,104 @@
+.header-dash{
+  height: 70px;
+}
+
+/* Firstpage.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.firstpage {
+  background-color: #f4f6f8;
+  color: #333;
+}
+
+/* Hero Section */
+.hero {
+
+    background-image: radial-gradient(ellipse at 50% 50%, hsl(329, 74%, 76%), hsl(0, 0%, 100%));
+  background-repeat: no-repeat;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+}
+
+.hero-overlay {
+  max-width: 700px;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.hero-overlay h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero-overlay p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.hero-button {
+  background-color: #ff5a91;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.hero-button:hover {
+  background-color: #e94e84;
+}
+
+/* Search Section */
+.search-section {
+  max-width: 600px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.search-section input {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+}
+
+.search-results {
+  margin-top: 20px;
+}
+
+/* Carousel Section */
+.carousel-section {
+  margin: 40px auto;
+  max-width: 900px;
+  padding: 0 20px;
+}
+
+/* Home Section */
+.home-section {
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.home-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.event-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
