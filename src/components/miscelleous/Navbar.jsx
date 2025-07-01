@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "../api/client";
+import EventCard from "../Card/Eventcard";
 import './miscelleous.css';
 export default function Navbar() {
   const [user, setUser] = useState(null);
@@ -8,6 +9,10 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation(); 
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const today = new Date().toISOString().split("T")[0];
   useEffect(() => {
     async function getUserData() {
       try {
@@ -52,6 +57,25 @@ export default function Navbar() {
     setUserInfo(null);
     navigate("/");
   };
+   const handleSearch = async (e) => {
+    const val = e.target.value;
+    setSearchQuery(val);
+    if (val.length === 0) return setSearchResults([]);
+
+    const { data } = await supabase
+      .from('event')  // Note: fixed table name to 'event' for consistency
+      .select('*')
+      .ilike('name', `%${val}%`)
+      .gte('date', today);
+
+    setSearchResults(data || []);
+  };
+
+  const handleResultClick = (eventId) => {
+    navigate(`/booking/${eventId}`);
+    setSearchQuery("");
+    setSearchResults([]);
+  };
 
   return (
     <header className="header">
@@ -60,10 +84,20 @@ export default function Navbar() {
         <span className="title">EveS</span>
       </Link>
 
+ 
       <div className="right">
         
 
-       
+       <div className="search-section">
+        <input type="text" placeholder="Search events..." className="search-text" value={searchQuery} onChange={handleSearch} />
+        {searchResults.length > 0 && (
+          <div className="search-results">
+            {searchResults.map(event => (
+              <EventCard key={event.id} event={event} onClick={() => handleResultClick(event.id)} />
+            ))}
+          </div>
+        )}
+      </div>
 
         {user ? (
   <>

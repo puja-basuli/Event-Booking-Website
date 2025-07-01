@@ -1,13 +1,19 @@
 .dashboard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-
-    background-image: radial-gradient(ellipse at 50% 50%, hsl(329, 74%, 76%), hsl(0, 0%, 100%));
+  display: flex;
+  flex-direction: column;   /* vertical stacking */
+  align-items: center;      /* center horizontally */
+  justify-content: flex-start;  /* align children to top */
+  min-height: 100vh;
+  padding: 2rem 1rem;       /* optional padding */
+  background-image: radial-gradient(
+    ellipse at 50% 50%, 
+    hsl(329, 61%, 86%), 
+    hsl(0, 0%, 100%)
+  );
   background-repeat: no-repeat;
-  }
-  
+  box-sizing: border-box;
+}
+
   .dashboard-header {
     
     margin-top: 60px;

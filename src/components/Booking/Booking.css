@@ -1,124 +1,208 @@
+/* Reset some basics */
+* {
+  box-sizing: border-box;
+}
+.header-dash-2{
+  height: 100px;
+}
+
 .booking-page {
-  padding: 2rem;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to right, #f8f9fa, #e9ecef);
-  min-height: 100vh;
-}
-
-.container {
-  background: white;
-  max-width: 900px;
+  max-width: 1000px;
   margin: auto;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #1c1c1c;
+  padding: 0 20px;
+
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.event-info {
+/* Wrapper for left image + right card */
+.event-wrapper {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  margin-bottom: 2rem;
+  gap: 30px;
+  margin-bottom: 40px;
 }
 
-.event-info img {
-  width: 250px;
+/* Left side big image container */
+.event-image-container {
+  flex: 2;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+ 
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(255, 0, 89, 0.2);
+  max-height: 450px;
+}
+
+
+
+.event-main-image {
+  width: 100%;
   height: auto;
-  border-radius: 10px;
-  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+  object-fit: contain;
 }
 
-.details {
+/* Right side summary card */
+.event-summary-card {
   flex: 1;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgb(0 0 0 / 0.1);
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-height: 300px;
 }
 
-.details p, .details label {
-  margin-bottom: 0.5rem;
+.event-title {
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 18px;
+  color: #555;
 }
 
-.details input[type="date"] {
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.seat-controls {
+.event-meta > div {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  justify-content: center;
-  margin: 1.5rem 0;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #555;
 }
 
-.seat-controls button {
-  font-size: 1.5rem;
-  width: 40px;
-  height: 40px;
+.event-meta i {
+  font-size: 16px;
+  color: #f00064;
+}
+
+.event-price {
+  font-weight: 700;
+  font-size: 20px;
+  margin: 15px 0;
+  color: #555;
+}
+
+.book-button {
+  background: #000;
+  color: #fff;
+  padding: 12px 18px;
   border: none;
-  background: #007bff;
-  color: white;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.seat-controls span {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.attendee-inputs {
-  margin-bottom: 1rem;
-}
-
-.attendee-inputs div {
-  margin-bottom: 0.5rem;
-}
-
-.attendee-inputs input {
-  padding: 8px;
-  width: 100%;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.error {
-  color: red;
-  font-weight: bold;
-  text-align: center;
-}
-
-.success {
-  color: green;
-  font-weight: bold;
-  text-align: center;
-}
-
-.book-btn {
-  display: block;
-  width: 100%;
-  padding: 1rem;
-  background: #28a745;
-  color: white;
-  font-weight: bold;
-  font-size: 1rem;
-  border: none;
+  font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
-  margin-top: 1rem;
+  transition: background 0.3s ease;
+  
 }
 
-.book-btn:hover {
-  background: #218838;
+.book-button:hover {
+  background: #c1005a;
 }
 
-.tickets {
-  margin-top: 1.5rem;
-  background: #e2f0d9;
-  padding: 1rem;
-  border-radius: 8px;
+/* About Event */
+.about-event h3 {
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 10px;
+ color: #555;
+}
+
+.about-event p {
+  font-size: 15px;
+  line-height: 1.5;
+  
+  max-width: 700px;
+  
+}
+
+.show-more-btn {
+  background: none;
+  border: none;
+  color: #f00064;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+/* Event Guide */
+.event-guide {
+  margin-top: 40px;
+  max-width: 700px;
+  color: #555;
+}
+
+.event-guide h3 {
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.guide-items {
+  display: flex;
+  gap: 40px;
+}
+
+.guide-items > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #555;
+  font-size: 14px;
+}
+
+.guide-items i {
+  font-size: 24px;
+  color: #f00064;
+}
+
+.guide-items strong {
+  font-weight: 600;
+ color: #555;
+}
+
+/* Gallery Section */
+.gallery-section {
+  margin-top: 40px;
+  max-width: 700px;
+}
+
+.gallery-section h3 {
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.gallery-images {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.gallery-image {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.05);
+}
+
+/* Venue Info */
+.venue-info {
+  font-size: 20px;
+  display: flex;
+  gap: 10px;
+  font-weight: 600;
+  color: #555;
+  border: 2px solid rgba(0, 0, 0, 0.144);
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.venue-info strong {
+  color: #f00064;
 }

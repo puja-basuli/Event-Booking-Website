@@ -6,10 +6,10 @@ import Register from "./components/Auth/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Hero from "./components/Hero/Hero";
 import Admin from "./components/Admin/Admin";
-import BookingPage from "./components/Booking/Booking";
-
+import Selection from "./components/Booking/Selection";
 import Wishlist from "./components/Wishlist/Wishlist";
 import { Toaster } from 'react-hot-toast';
+import Info from "./components/Booking/Info";
 
 
 function App() {
@@ -27,7 +27,9 @@ function App() {
        <Route path="/admin" index element={<Admin />} />
       <Route path="/admin/*" element={<Admin />} />
      
-      <Route path="/booking" index element ={<BookingPage/>}/>
+      <Route path="/booking/:id" index element ={<Info/>}/>
+
+      <Route path="/selection/:id" index element ={<Selection/>}/>
 
       <Route path="/wishlist" index element ={<Wishlist/>}/>
 
