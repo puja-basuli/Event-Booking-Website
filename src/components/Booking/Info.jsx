@@ -17,6 +17,7 @@ const Info = () => {
   const [loading, setLoading] = useState(!event);
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
   const [bookingData, setBookingData] = useState({
     quantity: 1,
     name: "",
@@ -24,18 +25,34 @@ const Info = () => {
     phone: ""
   });
   const [isBooking, setIsBooking] = useState(false);
+  const [selectedSeats, setSelectedSeats] = useState([]);
+  const [showSeatMap, setShowSeatMap] = useState(false);
 
   useEffect(() => {
     // Get current user
     const getCurrentUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
-      if (user) {
-        setBookingData(prev => ({
-          ...prev,
-          email: user.email,
-          name: user.user_metadata?.full_name || ""
-        }));
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        setUser(user);
+        
+        if (user) {
+          // Get user info from database
+          const { data: userData } = await supabase
+            .from('users')
+            .select('name, phone')
+            .eq('email', user.email)
+            .single();
+            
+          setUserInfo(userData);
+          setBookingData(prev => ({
+            ...prev,
+            email: user.email,
+            name: userData?.name || user.user_metadata?.full_name || "",
+            phone: userData?.phone || ""
+          }));
+        }
+      } catch (error) {
+        console.error("Error getting user:", error);
       }
     };
     getCurrentUser();
@@ -72,6 +89,30 @@ const Info = () => {
   const handleQuantityChange = (change) => {
     const newQuantity = Math.max(1, Math.min(10, bookingData.quantity + change));
     setBookingData(prev => ({ ...prev, quantity: newQuantity }));
+    setSelectedSeats([]);
+  };
+
+  const generateSeatMap = () => {
+    const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+    const seatsPerRow = 12;
+    const seats = [];
+    
+    for (let row of rows) {
+      for (let i = 1; i <= seatsPerRow; i++) {
+        seats.push(`${row}${i}`);
+      }
+    }
+    return seats;
+  };
+
+  const handleSeatSelect = (seat) => {
+    if (selectedSeats.includes(seat)) {
+      setSelectedSeats(prev => prev.filter(s => s !== seat));
+    } else if (selectedSeats.length < bookingData.quantity) {
+      setSelectedSeats(prev => [...prev, seat]);
+    } else {
+      toast.error(`You can only select ${bookingData.quantity} seat(s)`);
+    }
   };
 
   const handleBooking = async () => {
@@ -83,6 +124,11 @@ const Info = () => {
 
     if (!bookingData.name || !bookingData.phone) {
       toast.error("Please fill in all required fields");
+      return;
+    }
+
+    if (selectedSeats.length !== bookingData.quantity) {
+      toast.error(`Please select ${bookingData.quantity} seat(s)`);
       return;
     }
 
@@ -100,6 +146,7 @@ const Info = () => {
           phone: bookingData.phone,
           quantity: bookingData.quantity,
           amount: totalAmount,
+          seat_number: selectedSeats.join(', '),
           status: "confirmed"
         })
         .select()
@@ -168,13 +215,19 @@ const Info = () => {
 
   const shortDesc = event.description?.slice(0, 200) + (event.description?.length > 200 ? "..." : "");
   const totalAmount = event.amount * bookingData.quantity;
+  const allSeats = generateSeatMap();
 
   return (
     <div className="booking-page">
       <div className="booking-container">
         <div className="booking-header">
-          <h1>Book Your Tickets</h1>
-          <p>Secure your spot at this amazing event</p>
+          <div className="breadcrumb">
+            <span onClick={() => navigate("/")} className="breadcrumb-link">Home</span>
+            <i className="fa fa-chevron-right" aria-hidden="true"></i>
+            <span onClick={() => navigate("/")} className="breadcrumb-link">Events</span>
+            <i className="fa fa-chevron-right" aria-hidden="true"></i>
+            <span className="breadcrumb-current">{event.name}</span>
+          </div>
         </div>
 
         <div className="event-details">
@@ -187,6 +240,10 @@ const Info = () => {
                 loading="lazy"
                 onError={(e) => (e.target.src = defaultImage)}
               />
+              <div className="event-badge">
+                <i className="fa fa-ticket" aria-hidden="true"></i>
+                {event.tickets || "Limited"} tickets available
+              </div>
             </div>
 
             <div className="event-content">
@@ -195,27 +252,37 @@ const Info = () => {
               <div className="event-meta">
                 <div className="event-meta-item">
                   <i className="fa fa-calendar" aria-hidden="true"></i>
-                  <span>{formatDate(event.date)}</span>
-                </div>
-                
-                {event.time && (
-                  <div className="event-meta-item">
-                    <i className="fa fa-clock-o" aria-hidden="true"></i>
-                    <span>{formatTime(event.time)}</span>
+                  <div>
+                    <strong>{formatDate(event.date)}</strong>
+                    {event.time && <div className="meta-subtitle">{formatTime(event.time)}</div>}
                   </div>
-                )}
+                </div>
                 
                 <div className="event-meta-item">
                   <i className="fa fa-map-marker" aria-hidden="true"></i>
-                  <span>{event.location}</span>
+                  <div>
+                    <strong>{event.location}</strong>
+                    <div className="meta-subtitle">Venue Location</div>
+                  </div>
                 </div>
                 
                 {event.duration && (
                   <div className="event-meta-item">
                     <i className="fa fa-hourglass-half" aria-hidden="true"></i>
-                    <span>{event.duration} hours</span>
+                    <div>
+                      <strong>{event.duration} hours</strong>
+                      <div className="meta-subtitle">Event Duration</div>
+                    </div>
                   </div>
                 )}
+              </div>
+
+              <div className="event-price-section">
+                <div className="price-display">
+                  <span className="price-label">Starting from</span>
+                  <span className="price-amount">₹{event.amount}</span>
+                  <span className="price-note">per person</span>
+                </div>
               </div>
 
               {event.description && (
@@ -239,8 +306,10 @@ const Info = () => {
 
           <div className="booking-summary">
             <div className="summary-header">
-              <h3>Book Tickets</h3>
-              <div className="event-price">₹{event.amount}</div>
+              <h3>
+                <i className="fa fa-ticket" aria-hidden="true"></i>
+                Book Your Tickets
+              </h3>
             </div>
 
             <form className="booking-form" onSubmit={(e) => e.preventDefault()}>
@@ -304,6 +373,72 @@ const Info = () => {
                 </div>
               </div>
 
+              {/* Seat Selection */}
+              <div className="form-group">
+                <label>Select Your Seats</label>
+                <button
+                  type="button"
+                  className="seat-map-toggle"
+                  onClick={() => setShowSeatMap(!showSeatMap)}
+                >
+                  <i className="fa fa-th" aria-hidden="true"></i>
+                  {showSeatMap ? "Hide Seat Map" : "Choose Seats"}
+                </button>
+                
+                {selectedSeats.length > 0 && (
+                  <div className="selected-seats">
+                    <strong>Selected Seats: </strong>
+                    {selectedSeats.join(', ')}
+                  </div>
+                )}
+              </div>
+
+              {showSeatMap && (
+                <div className="seat-map">
+                  <div className="screen">
+                    <div className="screen-text">SCREEN/STAGE</div>
+                  </div>
+                  <div className="seats-grid">
+                    {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(row => (
+                      <div key={row} className="seat-row">
+                        <div className="row-label">{row}</div>
+                        {Array.from({length: 12}, (_, i) => i + 1).map(num => {
+                          const seatId = `${row}${num}`;
+                          const isSelected = selectedSeats.includes(seatId);
+                          const isOccupied = Math.random() < 0.1; // 10% chance of being occupied
+                          
+                          return (
+                            <button
+                              key={seatId}
+                              type="button"
+                              className={`seat ${isSelected ? 'selected' : ''} ${isOccupied ? 'occupied' : ''}`}
+                              onClick={() => !isOccupied && handleSeatSelect(seatId)}
+                              disabled={isOccupied}
+                              title={isOccupied ? 'Occupied' : seatId}
+                            >
+                              {num}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="seat-legend">
+                    <div className="legend-item">
+                      <div className="seat available"></div>
+                      <span>Available</span>
+                    </div>
+                    <div className="legend-item">
+                      <div className="seat selected"></div>
+                      <span>Selected</span>
+                    </div>
+                    <div className="legend-item">
+                      <div className="seat occupied"></div>
+                      <span>Occupied</span>
+                    </div>
+                  </div>
+                </div>
+              )}
               <div className="booking-total">
                 <div className="total-row">
                   <span>Ticket Price:</span>
@@ -314,8 +449,12 @@ const Info = () => {
                   <span>{bookingData.quantity}</span>
                 </div>
                 <div className="total-row">
+                  <span>Convenience Fee:</span>
+                  <span>₹{Math.round(totalAmount * 0.02)}</span>
+                </div>
+                <div className="total-row">
                   <span>Total Amount:</span>
-                  <span>₹{totalAmount}</span>
+                  <span>₹{totalAmount + Math.round(totalAmount * 0.02)}</span>
                 </div>
               </div>
 
@@ -323,9 +462,19 @@ const Info = () => {
                 type="button"
                 className="book-now-btn"
                 onClick={handleBooking}
-                disabled={isBooking || !bookingData.name || !bookingData.phone}
+                disabled={isBooking || !bookingData.name || !bookingData.phone || selectedSeats.length !== bookingData.quantity}
               >
-                {isBooking ? "Processing..." : `Book Now - ₹${totalAmount}`}
+                {isBooking ? (
+                  <>
+                    <i className="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    <i className="fa fa-credit-card" aria-hidden="true"></i>
+                    Book Now - ₹{totalAmount + Math.round(totalAmount * 0.02)}
+                  </>
+                )}
               </button>
             </form>
           </div>

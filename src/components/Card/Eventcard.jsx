@@ -27,6 +27,37 @@ const EventCard = ({ event, onWishlistChange }) => {
   const navigate = useNavigate();
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [checkingWishlist, setCheckingWishlist] = useState(true);
+
+  // Check if event is already in wishlist
+  useState(() => {
+    const checkWishlistStatus = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          setCheckingWishlist(false);
+          return;
+        }
+
+        const { data, error } = await supabase
+          .from("wishlist")
+          .select("id")
+          .eq("event_id", event.id)
+          .eq("user_email", user.email)
+          .single();
+
+        if (!error && data) {
+          setIsWishlisted(true);
+        }
+      } catch (error) {
+        console.log("Event not in wishlist");
+      } finally {
+        setCheckingWishlist(false);
+      }
+    };
+
+    checkWishlistStatus();
+  }, [event.id]);
 
   const handleExplore = () => {
     navigate(`/booking/${event.id}`, { state: { event } });
@@ -133,11 +164,15 @@ const EventCard = ({ event, onWishlistChange }) => {
             Explore Event
           </button>
           <button 
-            className={`heart-btn ${isWishlisted ? 'active' : ''}`}
+            className={`heart-btn ${isWishlisted ? 'active' : ''} ${checkingWishlist ? 'loading' : ''}`}
             onClick={handleWishlist}
-            disabled={isLoading}
+            disabled={isLoading || checkingWishlist}
           >
-            <i className={`fa ${isWishlisted ? 'fa-heart' : 'fa-heart-o'}`} aria-hidden="true"></i>
+            {checkingWishlist ? (
+              <i className="fa fa-spinner fa-spin" aria-hidden="true"></i>
+            ) : (
+              <i className={`fa ${isWishlisted ? 'fa-heart' : 'fa-heart-o'}`} aria-hidden="true"></i>
+            )}
           </button>
         </div>
       </div>

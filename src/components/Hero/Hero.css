@@ -92,6 +92,112 @@
   color: #1a1a1a;
 }
 
+/* Location Filter */
+.location-filter {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.location-btn {
+  background: white;
+  border: 2px solid #e1e5e9;
+  color: #666;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.location-btn:hover,
+.location-btn.active {
+  background: #ff0059;
+  border-color: #ff0059;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 0, 89, 0.3);
+}
+
+/* Loading and Error States */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  gap: 1rem;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #ff0059;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-container {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #fee;
+  border-radius: 12px;
+  border: 1px solid #fcc;
+  color: #c33;
+}
+
+.retry-btn {
+  background: #ff0059;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.retry-btn:hover {
+  background: #cc0047;
+  transform: translateY(-2px);
+}
+
+.no-events {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.no-events i {
+  font-size: 4rem;
+  color: #ddd;
+  margin-bottom: 2rem;
+}
+
+.no-events h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.no-events p {
+  color: #666;
+  font-size: 1rem;
+}
+
 .event-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -173,8 +279,12 @@
     gap: 0.5rem;
   }
   
-  .category-btn {
+  .location-btn {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
+  }
+  
+  .location-filter {
+    gap: 0.5rem;
   }
 }
