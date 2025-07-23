@@ -159,15 +159,3 @@ function Hero() {
 }
 
 export default Hero;
-              <EventCard key={event.id} event={event} />
-            ))}
-          </div>
-        )}
-      </div>
-
-      <Footer />
-    </div>
-  );
-}
-
-export default Hero;
