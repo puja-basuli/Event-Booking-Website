@@ -20,7 +20,12 @@ export default function Navbar() {
         if (error) throw error;
         setUser(data.user || null);
       } catch (error) {
-        console.error("Error fetching user data:", error.message);
+        if (error.message === 'Auth session missing!') {
+          // This is expected when no user is authenticated - not an error
+          console.log("No active user session");
+        } else {
+          console.error("Error fetching user data:", error.message);
+        }
       }
     }
 
