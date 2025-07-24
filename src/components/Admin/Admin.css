@@ -8,7 +8,7 @@
 
 .sidebar {
   width: 220px;
-  background-color: #dbacb98a;
+  background: linear-gradient(135deg, #e6e6fa, #dda0dd);
   display: flex;
   flex-direction: column;
   padding: 20px 0;
@@ -16,7 +16,7 @@
 }
 
 .bar-content {
-  color: rgb(255, 64, 134);
+  color: #6a5acd;
   padding: 15px 20px;
   text-decoration: none;
   font-weight: 800;
@@ -25,13 +25,14 @@
 }
 
 .bar-content:hover {
-  background-color: #a01443;
+  background-color: #9370db;
+  color: white;
 }
 
 .admin-main {
   flex-grow: 1;
   padding: 20px;
-  background-color: #f7f9fc;
+  background: linear-gradient(135deg, #f8f8ff, #e6e6fa);
   overflow-y: auto;
 
 }
@@ -39,7 +40,7 @@
 .dashboard-wrapper {
   padding: 30px;
   font-family: 'Segoe UI', sans-serif;
-  background: #f9fafb;
+  background: linear-gradient(135deg, #f8f8ff, #e6e6fa);
 }
 
 .dashboard-title {
@@ -79,7 +80,7 @@
 .dashboard-box p {
   font-size: 32px;
   font-weight: bold;
-  color: rgb(255, 64, 134)e;
+  color: #9370db;
 }
 
 .table-title {
@@ -121,7 +122,7 @@
 }
 
 .add-btn {
-  background-color: rgb(255, 64, 134);
+  background: linear-gradient(135deg, #9370db, #8a2be2);
   color: white;
   padding: 8px 16px;
   margin-bottom: 10px;
@@ -131,12 +132,13 @@
   font-weight: 600;
 }
 .add-btn:hover {
-  background-color: rgb(163, 42, 86);
+  background: linear-gradient(135deg, #8a2be2, #7b68ee);
+  transform: translateY(-2px);
 }
 
 .edit-btn {
   padding: 5px 10px;
-  background-color: #ffbad5;
+  background: linear-gradient(135deg, #dda0dd, #da70d6);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -144,7 +146,7 @@
 }
 
 .edit-btn:hover {
-  background-color: #b78598;
+  background: linear-gradient(135deg, #da70d6, #ba55d3);
 }
 
 .modal {
@@ -188,7 +190,7 @@
 }
 
 .save-btn {
-  background-color: #10b981;
+  background: linear-gradient(135deg, #9370db, #8a2be2);
   color: white;
   padding: 10px;
   border: none;
@@ -197,7 +199,7 @@
 }
 
 .cancel-btn {
-  background-color: #ff4141;
+  background: linear-gradient(135deg, #dda0dd, #da70d6);
   color: white;
   padding: 10px;
   border: none;

@@ -53,15 +53,32 @@ const Events = () => {
   };
 
   const openEditForm = async (event) => {
-    const { data, error } = await supabase
-      .from("event")
-      .select("*")
-      .eq("id", event.id)
-      .single();
+    try {
+      const { data, error } = await supabase
+        .from("event")
+        .select("*")
+        .eq("id", event.id)
+        .single();
 
-    if (!error) {
-      setFormData({ ...data });
+      if (error) throw error;
+      
+      setFormData({
+        id: data.id,
+        name: data.name || "",
+        location: data.location || "",
+        date: data.date || "",
+        time: data.time || "",
+        amount: data.amount || 0,
+        description: data.description || "",
+        tickets: data.tickets || 0,
+        duration: data.duration || 0,
+        image: data.image || "",
+        terms: data.terms || ""
+      });
       setShowForm(true);
+    } catch (error) {
+      console.error("Error fetching event details:", error);
+      alert("Failed to load event details: " + error.message);
     }
   };
 

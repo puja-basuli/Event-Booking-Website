@@ -1,6 +1,6 @@
 /* Hero Section Styles */
 .firstpage {
-  background: linear-gradient(135deg, #ffeef5 0%, #fff 100%);
+  background: linear-gradient(135deg, #f8f8ff 0%, #e6e6fa 50%, #dda0dd 100%);
   min-height: 100vh;
 }
 
@@ -28,7 +28,7 @@
   line-height: 1.2;
   margin-bottom: 1.5rem;
   color: #1a1a1a;
-  background: linear-gradient(135deg, #ff0059, #ff4081);
+  background: linear-gradient(135deg, #9370db, #8a2be2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -42,7 +42,7 @@
 }
 
 .hero-button {
-  background: linear-gradient(135deg, #ff0059, #ff4081);
+  background: linear-gradient(135deg, #9370db, #8a2be2);
   color: white;
   padding: 1rem 2rem;
   border-radius: 50px;
@@ -51,13 +51,13 @@
   font-size: 1.1rem;
   transition: all 0.3s ease;
   display: inline-block;
-  box-shadow: 0 4px 15px rgba(255, 0, 89, 0.3);
+  box-shadow: 0 4px 15px rgba(147, 112, 219, 0.3);
   align-self: flex-start;
 }
 
 .hero-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(255, 0, 89, 0.4);
+  box-shadow: 0 8px 25px rgba(147, 112, 219, 0.4);
   color: white;
 }
 
@@ -115,11 +115,11 @@
 
 .location-btn:hover,
 .location-btn.active {
-  background: #ff0059;
-  border-color: #ff0059;
+  background: #9370db;
+  border-color: #9370db;
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 0, 89, 0.3);
+  box-shadow: 0 4px 12px rgba(147, 112, 219, 0.3);
 }
 
 /* Loading and Error States */
@@ -136,7 +136,7 @@
   width: 40px;
   height: 40px;
   border: 3px solid #f3f3f3;
-  border-top: 3px solid #ff0059;
+  border-top: 3px solid #9370db;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -156,7 +156,7 @@
 }
 
 .retry-btn {
-  background: #ff0059;
+  background: #9370db;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -168,7 +168,7 @@
 }
 
 .retry-btn:hover {
-  background: #cc0047;
+  background: #8a2be2;
   transform: translateY(-2px);
 }
 

@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #ffeef5 0%, #fff 100%);
+  background: linear-gradient(135deg, #f8f8ff 0%, #e6e6fa 50%, #dda0dd 100%);
   padding: 2rem 1rem;
 }
 
@@ -55,8 +55,8 @@
 
 .form-control:focus {
   outline: none;
-  border-color: #ff0059;
-  box-shadow: 0 0 0 3px rgba(255, 0, 89, 0.1);
+  border-color: #9370db;
+  box-shadow: 0 0 0 3px rgba(147, 112, 219, 0.1);
 }
 
 .form-control::placeholder {
@@ -71,7 +71,7 @@
 }
 
 .submit-button {
-  background: linear-gradient(135deg, #ff0059, #ff4081);
+  background: linear-gradient(135deg, #9370db, #8a2be2);
   color: white;
   border: none;
   padding: 0.875rem 1.5rem;
@@ -85,7 +85,7 @@
 
 .submit-button:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 0, 89, 0.3);
+  box-shadow: 0 8px 25px rgba(147, 112, 219, 0.3);
 }
 
 .submit-button:disabled {
@@ -153,14 +153,14 @@
 }
 
 .register-link-text {
-  color: #ff0059;
+  color: #9370db;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
 .register-link-text:hover {
-  color: #cc0047;
+  color: #8a2be2;
   text-decoration: underline;
 }
 

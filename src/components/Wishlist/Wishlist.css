@@ -1,6 +1,6 @@
 .wishlist-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #ffeef5 0%, #fff 100%);
+  background: linear-gradient(135deg, #f8f8ff 0%, #e6e6fa 50%, #dda0dd 100%);
   padding-top: 80px;
 }
 
@@ -20,7 +20,7 @@
   font-weight: 800;
   color: #1a1a1a;
   margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, #ff0059, #ff4081);
+  background: linear-gradient(135deg, #9370db, #8a2be2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -120,7 +120,7 @@
 }
 
 .browse-events-btn {
-  background: linear-gradient(135deg, #ff0059, #ff4081);
+  background: linear-gradient(135deg, #9370db, #8a2be2);
   color: white;
   padding: 1rem 2rem;
   border: none;
@@ -131,12 +131,12 @@
   transition: all 0.3s ease;
   text-decoration: none;
   display: inline-block;
-  box-shadow: 0 4px 15px rgba(255, 0, 89, 0.3);
+  box-shadow: 0 4px 15px rgba(147, 112, 219, 0.3);
 }
 
 .browse-events-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(255, 0, 89, 0.4);
+  box-shadow: 0 8px 25px rgba(147, 112, 219, 0.4);
   color: white;
 }
 
@@ -154,7 +154,7 @@
   width: 40px;
   height: 40px;
   border: 3px solid #f3f3f3;
-  border-top: 3px solid #ff0059;
+  border-top: 3px solid #9370db;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -176,7 +176,7 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #ff0059, #ff4081);
+  background: linear-gradient(135deg, #9370db, #8a2be2);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -189,7 +189,7 @@
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 0, 89, 0.3);
+  box-shadow: 0 6px 20px rgba(147, 112, 219, 0.3);
 }
 
 /* Responsive Design */

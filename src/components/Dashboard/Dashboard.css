@@ -1,6 +1,6 @@
 .dashboard {
   min-height: 100vh;
-  background: linear-gradient(135deg, #ffeef5 0%, #fff 100%);
+  background: linear-gradient(135deg, #f8f8ff 0%, #e6e6fa 50%, #dda0dd 100%);
   padding-top: 80px;
 }
 
@@ -57,14 +57,14 @@
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #ff0059;
+  border: 3px solid #9370db;
 }
 
 .profile-avatar-placeholder {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ff0059, #ff4081);
+  background: linear-gradient(135deg, #9370db, #8a2be2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,8 +112,8 @@
 
 .form-input:focus {
   outline: none;
-  border-color: #ff0059;
-  box-shadow: 0 0 0 3px rgba(255, 0, 89, 0.1);
+  border-color: #9370db;
+  box-shadow: 0 0 0 3px rgba(147, 112, 219, 0.1);
 }
 
 .form-actions {
@@ -144,13 +144,13 @@
 }
 
 .btn-save {
-  background: linear-gradient(135deg, #28a745, #20c997);
+  background: linear-gradient(135deg, #9370db, #8a2be2);
   color: white;
 }
 
 .btn-save:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+  box-shadow: 0 6px 20px rgba(147, 112, 219, 0.3);
 }
 
 .btn-cancel {
@@ -206,7 +206,7 @@
 
 .tab-btn.active {
   background: white;
-  color: #ff0059;
+  color: #9370db;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -226,7 +226,7 @@
 
 .event-card:hover {
   transform: translateY(-2px);
-  border-color: #ff0059;
+  border-color: #9370db;
   background: white;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
@@ -254,7 +254,7 @@
 }
 
 .event-meta-item i {
-  color: #ff0059;
+  color: #9370db;
   width: 16px;
 }
 
@@ -287,7 +287,7 @@
 }
 
 .browse-events-btn {
-  background: linear-gradient(135deg, #ff0059, #ff4081);
+  background: linear-gradient(135deg, #9370db, #8a2be2);
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 25px;
@@ -299,7 +299,7 @@
 
 .browse-events-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 0, 89, 0.3);
+  box-shadow: 0 6px 20px rgba(147, 112, 219, 0.3);
   color: white;
 }
 
@@ -341,7 +341,7 @@
   width: 40px;
   height: 40px;
   border: 3px solid #f3f3f3;
-  border-top: 3px solid #ff0059;
+  border-top: 3px solid #9370db;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

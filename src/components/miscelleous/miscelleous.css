@@ -61,14 +61,14 @@
   width: 48px;
   height: 48px;
   background-image:
-    radial-gradient(circle 8px, #ff0059 100%, transparent 0),
-    radial-gradient(circle 8px, #ff0059 100%, transparent 0),
-    radial-gradient(circle 8px, #ff0059 100%, transparent 0),
-    radial-gradient(circle 8px, #ff0059 100%, transparent 0),
-    radial-gradient(circle 8px, #ff0059 100%, transparent 0),
-    radial-gradient(circle 8px, #ff0059 100%, transparent 0),
-    radial-gradient(circle 8px, #ff0059 100%, transparent 0),
-    radial-gradient(circle 8px, #ff0059 100%, transparent 0);
+    radial-gradient(circle 8px, #9370db 100%, transparent 0),
+    radial-gradient(circle 8px, #9370db 100%, transparent 0),
+    radial-gradient(circle 8px, #9370db 100%, transparent 0),
+    radial-gradient(circle 8px, #9370db 100%, transparent 0),
+    radial-gradient(circle 8px, #9370db 100%, transparent 0),
+    radial-gradient(circle 8px, #9370db 100%, transparent 0),
+    radial-gradient(circle 8px, #9370db 100%, transparent 0),
+    radial-gradient(circle 8px, #9370db 100%, transparent 0);
   background-position: 
     0px -18px, 0px 18px, 18px 0px, -18px 0px,
     13px -13px, -13px -13px, 13px 13px, -13px 13px;
@@ -124,8 +124,8 @@
 
 .search-text:focus {
   outline: none;
-  border-color: #ff0059;
-  box-shadow: 0 0 0 3px rgba(255, 0, 89, 0.1);
+  border-color: #9370db;
+  box-shadow: 0 0 0 3px rgba(147, 112, 219, 0.1);
 }
 
 .search-results {
@@ -197,7 +197,7 @@
   font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: #ff0059;
+  color: #9370db;
 }
 
 .footer-section p {
@@ -220,7 +220,7 @@
 }
 
 .logo-container i:hover {
-  color: #ff0059;
+  color: #9370db;
 }
 
 @media (max-width: 768px) {
@@ -240,7 +240,7 @@
 
 /* Utility Classes */
 .text-gradient {
-  background: linear-gradient(135deg, #ff0059, #ff4081);
+  background: linear-gradient(135deg, #9370db, #8a2be2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

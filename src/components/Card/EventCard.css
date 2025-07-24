@@ -36,7 +36,7 @@
   position: absolute;
   top: 12px;
   left: 12px;
-  background: rgba(255, 0, 89, 0.9);
+  background: rgba(147, 112, 219, 0.9);
   color: white;
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
@@ -77,7 +77,7 @@
 }
 
 .card-meta-item i {
-  color: #ff0059;
+  color: #9370db;
   width: 16px;
   text-align: center;
 }
@@ -85,7 +85,7 @@
 .card-price {
   font-size: 1.125rem;
   font-weight: 700;
-  color: #ff0059;
+  color: #9370db;
   margin-bottom: 1rem;
 }
 
@@ -97,7 +97,7 @@
 
 .buy-btn {
   flex: 1;
-  background: linear-gradient(135deg, #ff0059, #ff4081);
+  background: linear-gradient(135deg, #9370db, #8a2be2);
   color: white;
   border: none;
   padding: 0.75rem 1rem;
@@ -110,7 +110,7 @@
 
 .buy-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 0, 89, 0.3);
+  box-shadow: 0 6px 20px rgba(147, 112, 219, 0.3);
 }
 
 .heart-btn {
@@ -129,15 +129,15 @@
 }
 
 .heart-btn:hover {
-  border-color: #ff0059;
-  color: #ff0059;
-  background: rgba(255, 0, 89, 0.05);
+  border-color: #9370db;
+  color: #9370db;
+  background: rgba(147, 112, 219, 0.05);
 }
 
 .heart-btn.active {
-  border-color: #ff0059;
-  color: #ff0059;
-  background: rgba(255, 0, 89, 0.1);
+  border-color: #9370db;
+  color: #9370db;
+  background: rgba(147, 112, 219, 0.1);
 }
 
 .heart-btn.loading {

@@ -88,14 +88,14 @@ function Hero() {
     <div className="firstpage">
       <div className="hero">
         <div className="hero-overlay">
-          <h1>Discover Exciting Events Around You</h1>
-          <p>Book your tickets, explore locations, and never miss a moment of fun.</p>
-          <Link to="/" className="hero-button">Browse All Events</Link>
+          <h1>Experience Magic in Every Moment</h1>
+          <p>Discover enchanting events, create beautiful memories, and immerse yourself in extraordinary experiences that touch your soul.</p>
+          <Link to="#events" className="hero-button">Explore Events</Link>
         </div>
         <div className="hero-image"></div>
       </div>
 
-      <div className="home-section">
+      <div className="home-section" id="events">
         <h2>Upcoming Events</h2>
         
         {/* Location Filter */}

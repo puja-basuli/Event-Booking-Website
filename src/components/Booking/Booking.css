@@ -1,7 +1,7 @@
 /* Booking Page Styles */
 .booking-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #ffeef5 0%, #fff 100%);
+  background: linear-gradient(135deg, #f8f8ff 0%, #e6e6fa 50%, #dda0dd 100%);
   padding-top: 80px;
 }
 
@@ -38,13 +38,13 @@
 }
 
 .breadcrumb-link {
-  color: #ff0059;
+  color: #9370db;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
 .breadcrumb-link:hover {
-  color: #cc0047;
+  color: #8a2be2;
   text-decoration: underline;
 }
 
@@ -95,7 +95,7 @@
   top: 1rem;
   right: 1rem;
   background: rgba(255, 255, 255, 0.95);
-  color: #ff0059;
+  color: #9370db;
   padding: 0.5rem 1rem;
   border-radius: 25px;
   font-size: 0.8rem;
@@ -133,11 +133,11 @@
   padding: 1rem;
   background: #f8f9fa;
   border-radius: 12px;
-  border-left: 4px solid #ff0059;
+  border-left: 4px solid #9370db;
 }
 
 .event-meta-item i {
-  color: #ff0059;
+  color: #9370db;
   font-size: 1.25rem;
   width: 20px;
   text-align: center;
@@ -156,7 +156,7 @@
 
 /* Event Price Section */
 .event-price-section {
-  background: linear-gradient(135deg, #ff0059, #ff4081);
+  background: linear-gradient(135deg, #9370db, #8a2be2);
   color: white;
   padding: 1.5rem;
   border-radius: 12px;
@@ -240,7 +240,7 @@
 }
 
 .summary-header i {
-  color: #ff0059;
+  color: #9370db;
 }
 
 .booking-form {
@@ -274,8 +274,8 @@
 .form-input:focus,
 .form-select:focus {
   outline: none;
-  border-color: #ff0059;
-  box-shadow: 0 0 0 3px rgba(255, 0, 89, 0.1);
+  border-color: #9370db;
+  box-shadow: 0 0 0 3px rgba(147, 112, 219, 0.1);
 }
 
 .quantity-selector {
@@ -304,8 +304,8 @@
 }
 
 .quantity-btn:hover {
-  border-color: #ff0059;
-  color: #ff0059;
+  border-color: #9370db;
+  color: #9370db;
 }
 
 .quantity-btn:disabled {
@@ -341,9 +341,9 @@
 }
 
 .seat-map-toggle:hover {
-  border-color: #ff0059;
-  color: #ff0059;
-  background: rgba(255, 0, 89, 0.05);
+  border-color: #9370db;
+  color: #9370db;
+  background: rgba(147, 112, 219, 0.05);
 }
 
 .selected-seats {
@@ -427,13 +427,13 @@
 }
 
 .seat:hover:not(.occupied) {
-  border-color: #ff0059;
-  background: rgba(255, 0, 89, 0.1);
+  border-color: #9370db;
+  background: rgba(147, 112, 219, 0.1);
 }
 
 .seat.selected {
-  background: #ff0059;
-  border-color: #ff0059;
+  background: #9370db;
+  border-color: #9370db;
   color: white;
 }
 
@@ -491,11 +491,11 @@
   border-top: 2px solid #e1e5e9;
   font-weight: 700;
   font-size: 1.125rem;
-  color: #ff0059;
+  color: #9370db;
 }
 
 .book-now-btn {
-  background: linear-gradient(135deg, #ff0059, #ff4081);
+  background: linear-gradient(135deg, #9370db, #8a2be2);
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -513,7 +513,7 @@
 
 .book-now-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 0, 89, 0.3);
+  box-shadow: 0 8px 25px rgba(147, 112, 219, 0.3);
 }
 
 .book-now-btn:disabled {
@@ -561,7 +561,7 @@
 
 .guide-item i {
   font-size: 2rem;
-  color: #ff0059;
+  color: #9370db;
   width: 40px;
   text-align: center;
 }
@@ -634,12 +634,12 @@
   padding: 1.5rem;
   background: #f8f9fa;
   border-radius: 12px;
-  border-left: 4px solid #ff0059;
+  border-left: 4px solid #9370db;
 }
 
 .venue-info i {
   font-size: 1.5rem;
-  color: #ff0059;
+  color: #9370db;
 }
 
 .venue-info span {
