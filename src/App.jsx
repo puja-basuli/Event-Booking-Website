@@ -6,7 +6,10 @@ import Register from "./components/Auth/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Hero from "./components/Hero/Hero";
 import Admin from "./components/Admin/Admin";
+<<<<<<< HEAD
 import Selection from "./components/Booking/Selection";
+=======
+>>>>>>> c66a3d2 (fix: booking, ui)
 import Wishlist from "./components/Wishlist/Wishlist";
 import { Toaster } from 'react-hot-toast';
 import Info from "./components/Booking/Info";
@@ -29,8 +32,11 @@ function App() {
      
       <Route path="/booking/:id" index element ={<Info/>}/>
 
+<<<<<<< HEAD
       <Route path="/selection/:id" index element ={<Selection/>}/>
 
+=======
+>>>>>>> c66a3d2 (fix: booking, ui)
       <Route path="/wishlist" index element ={<Wishlist/>}/>
 
 

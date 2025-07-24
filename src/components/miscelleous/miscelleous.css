@@ -282,4 +282,11 @@
     opacity: 1;
     transform: translateY(0);
   }
+<<<<<<< HEAD
+=======
+}
+.header{
+  border-radius: 40px;
+  margin: 10px;
+>>>>>>> c66a3d2 (fix: booking, ui)
 }

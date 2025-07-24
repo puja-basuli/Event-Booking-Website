@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
+<<<<<<< HEAD
 import { Link, useNavigate } from "react-router-dom";
+=======
+import { useNavigate } from "react-router-dom";
+>>>>>>> c66a3d2 (fix: booking, ui)
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import EventCard from "../Card/Eventcard";
 import Footer from "../miscelleous/Footer";
@@ -10,8 +14,11 @@ function Hero() {
   const [user, setUser] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
   const [events, setEvents] = useState([]);
+<<<<<<< HEAD
   const [selectedLocation, setSelectedLocation] = useState("all");
   const [locations, setLocations] = useState([]);
+=======
+>>>>>>> c66a3d2 (fix: booking, ui)
   const [loadingEvents, setLoadingEvents] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -62,11 +69,14 @@ function Hero() {
         if (error) throw error;
         
         setEvents(data || []);
+<<<<<<< HEAD
         
         // Extract unique locations
         const uniqueLocations = [...new Set(data?.map(event => event.location) || [])];
         setLocations(uniqueLocations);
         
+=======
+>>>>>>> c66a3d2 (fix: booking, ui)
       } catch (error) {
         console.error("Error fetching events:", error);
         setError("Failed to load events");
@@ -79,24 +89,31 @@ function Hero() {
     fetchEvents();
   }, [today]);
 
+<<<<<<< HEAD
   const filterEventsByLocation = () => {
     if (selectedLocation === "all") return events;
     return events.filter(event => event.location === selectedLocation);
   };
 
+=======
+>>>>>>> c66a3d2 (fix: booking, ui)
   return (
     <div className="firstpage">
       <div className="hero">
         <div className="hero-overlay">
           <h1>Experience Magic in Every Moment</h1>
           <p>Discover enchanting events, create beautiful memories, and immerse yourself in extraordinary experiences that touch your soul.</p>
+<<<<<<< HEAD
           <Link to="#events" className="hero-button">Explore Events</Link>
+=======
+>>>>>>> c66a3d2 (fix: booking, ui)
         </div>
         <div className="hero-image"></div>
       </div>
 
       <div className="home-section" id="events">
         <h2>Upcoming Events</h2>
+<<<<<<< HEAD
         
         {/* Location Filter */}
         {locations.length > 0 && (
@@ -119,6 +136,9 @@ function Hero() {
           </div>
         )}
         
+=======
+
+>>>>>>> c66a3d2 (fix: booking, ui)
         {loadingEvents ? (
           <div className="loading-container">
             <div className="loading-spinner"></div>
@@ -133,20 +153,29 @@ function Hero() {
           </div>
         ) : (
           <div className="event-list">
+<<<<<<< HEAD
             {filterEventsByLocation().length > 0 ? (
               filterEventsByLocation().map(event => (
+=======
+            {events.length > 0 ? (
+              events.map(event => (
+>>>>>>> c66a3d2 (fix: booking, ui)
                 <EventCard key={event.id} event={event} />
               ))
             ) : (
               <div className="no-events">
                 <i className="fa fa-calendar-o" aria-hidden="true"></i>
                 <h3>No events found</h3>
+<<<<<<< HEAD
                 <p>
                   {selectedLocation === "all" 
                     ? "No upcoming events available at the moment."
                     : `No upcoming events in ${selectedLocation}.`
                   }
                 </p>
+=======
+                <p>No upcoming events available at the moment.</p>
+>>>>>>> c66a3d2 (fix: booking, ui)
               </div>
             )}
           </div>

@@ -153,6 +153,7 @@
   position: fixed;
   top: 0;
   left: 0;
+<<<<<<< HEAD
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,0.4);
@@ -230,6 +231,108 @@
   resize: vertical;
 }
 
+=======
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 2rem; /* for spacing on small screens */
+  overflow: auto;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 1200px;
+  width: 100%;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h3 {
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  max-width: 100vw;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="date"],
+form input[type="time"],
+form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+form textarea {
+  resize: vertical;
+  grid-column: span 3;
+}
+
+form label {
+  font-weight: 500;
+  grid-column: span 3;
+}
+
+form img {
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+}
+
+.form-buttons {
+  grid-column: span 3;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.save-btn,
+.cancel-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.save-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  color: #333;
+}
+
+.save-btn:hover {
+  background-color: #0056b3;
+}
+
+.cancel-btn:hover {
+  background-color: #999;
+}
+
+
+>>>>>>> c66a3d2 (fix: booking, ui)
 .nested-booking-table {
   width: 100%;
   border-collapse: collapse;

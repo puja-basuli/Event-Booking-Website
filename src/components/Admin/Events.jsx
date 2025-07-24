@@ -210,6 +210,7 @@ const Events = () => {
       </div>
 
       {showForm && (
+<<<<<<< HEAD
         <div className="modal">
           <div className="modal-content">
             <h3>{formData.id ? "Edit Event" : "Add Event"}</h3>
@@ -247,6 +248,71 @@ const Events = () => {
             </form>
           </div>
         </div>
+=======
+        <form onSubmit={handleSubmit}>
+  <div>
+    <label>Event Name</label>
+    <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Event Name" required />
+  </div>
+
+  <div>
+    <label>Location</label>
+    <input type="text" name="location" value={formData.location} onChange={handleChange} placeholder="Location" required />
+  </div>
+
+  <div>
+    <label>Date</label>
+    <input type="date" name="date" value={formData.date} onChange={handleChange} required />
+  </div>
+
+  <div>
+    <label>Time</label>
+    <input type="time" name="time" value={formData.time} onChange={handleChange} required />
+  </div>
+
+  <div>
+    <label>Amount</label>
+    <input type="number" name="amount" value={formData.amount} onChange={handleChange} placeholder="Amount" required />
+  </div>
+
+  <div>
+    <label>Tickets</label>
+    <input type="number" name="tickets" value={formData.tickets} onChange={handleChange} placeholder="Number of Tickets" />
+  </div>
+
+  <div>
+    <label>Duration (hrs)</label>
+    <input type="number" name="duration" value={formData.duration} onChange={handleChange} placeholder="Duration" />
+  </div>
+
+  <div style={{ gridColumn: "span 3" }}>
+    <label>Description</label>
+    <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Description" rows="3" />
+  </div>
+
+  <div style={{ gridColumn: "span 3" }}>
+    <label>Upload Image</label>
+    <input type="file" accept="image/*" onChange={handleFileChange} />
+    {uploadingImage && <p>Uploading image...</p>}
+    {formData.image && !uploadingImage && (
+      <img src={formData.image} alt="Event" style={{ maxWidth: "150px", marginTop: "10px" }} />
+    )}
+  </div>
+
+  <div style={{ gridColumn: "span 3" }}>
+    <label>Terms & Conditions</label>
+    <textarea name="terms" value={formData.terms} onChange={handleChange} placeholder="Terms & Conditions" rows="3" />
+  </div>
+
+  <div className="form-buttons">
+    <button type="submit" className="save-btn" disabled={uploadingImage}>
+      {uploadingImage ? "Please wait..." : "Save"}
+    </button>
+    <button type="button" className="cancel-btn" onClick={() => setShowForm(false)} disabled={uploadingImage}>Cancel</button>
+  </div>
+</form>
+
+>>>>>>> c66a3d2 (fix: booking, ui)
       )}
 
       {deleteConfirm.show && (

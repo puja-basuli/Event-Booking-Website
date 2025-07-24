@@ -11,7 +11,10 @@
   min-height: 80vh;
   padding: 2rem 5%;
   gap: 3rem;
+<<<<<<< HEAD
   margin-top: 80px;
+=======
+>>>>>>> c66a3d2 (fix: booking, ui)
 }
 
 .hero-overlay {
@@ -65,11 +68,17 @@
   flex: 1;
   background-image: url("/hero.png");
   background-repeat: no-repeat;
+<<<<<<< HEAD
   background-size: cover;
   background-position: center;
   min-height: 500px;
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+=======
+  background-size: contain;
+  background-position: center;
+  min-height: 700px;
+>>>>>>> c66a3d2 (fix: booking, ui)
   transition: transform 0.3s ease;
 }
 

@@ -4,6 +4,10 @@ import { supabase } from "../api/client";
 import { toast } from "react-hot-toast";
 import Footer from "../miscelleous/Footer";
 import "./Booking.css";
+<<<<<<< HEAD
+=======
+import { v4 as uuidv4 } from 'uuid';
+>>>>>>> c66a3d2 (fix: booking, ui)
 
 const defaultImage = "https://via.placeholder.com/500x300?text=Event+Image";
 
@@ -139,8 +143,14 @@ const Info = () => {
       const { data, error } = await supabase
         .from("booking")
         .insert({
+<<<<<<< HEAD
           event_id: event.id,
           user_id: user.id,
+=======
+          id: uuidv4(),
+          event_id: parseInt(event.id),
+          user_id: userInfo?.id, 
+>>>>>>> c66a3d2 (fix: booking, ui)
           email: user.email,
           name: bookingData.name,
           phone: bookingData.phone,

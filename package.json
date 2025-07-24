@@ -32,7 +32,12 @@
     "react-hot-toast": "^2.5.2",
     "react-redux": "^9.1.2",
     "react-responsive-carousel": "^3.2.23",
+<<<<<<< HEAD
     "react-router-dom": "^6.25.1"
+=======
+    "react-router-dom": "^6.25.1",
+    "uuid": "^11.1.0"
+>>>>>>> c66a3d2 (fix: booking, ui)
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
